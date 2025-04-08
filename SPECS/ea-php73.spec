@@ -142,7 +142,7 @@ Summary:  PHP DSO
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.3.33
-%define release_prefix 14
+%define release_prefix 13
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -1962,9 +1962,6 @@ fi
 %endif
 
 %changelog
-* Wed Apr 02 2025 Julian Brown <julian.brown@webpros.com> - 7.3.33-14
-- ZC-12156: Automate creation of *.conffiles
-
 * Fri Oct 25 2024 Julian Brown <julian.brown@cpanel.net> - 7.3.33-13
 - ZC-12246: Correct conffiles for Ubuntu
 
