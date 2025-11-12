@@ -142,7 +142,7 @@ Summary:  PHP DSO
 Vendor:   cPanel, Inc.
 Name:     %{?scl_prefix}php
 Version:  7.3.33
-%define release_prefix 13
+%define release_prefix 14
 Release:  %{release_prefix}%{?dist}.cpanel
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
@@ -192,6 +192,7 @@ Patch403: 0014-Revert-new-.user.ini-search-behavior.patch
 Patch404: 0015-Update-libxml-include-file-references.patch
 
 Patch015: 0015-libxml2-2.13-makes-changes-to-how-the-parsing-state-.patch
+Patch016: 0016-Fix-libxml2-v2.15.0-compatibility.patch
 
 BuildRequires: bzip2-devel, %{db_devel}
 
@@ -1079,6 +1080,7 @@ inside them.
 #%endif
 
 %patch015 -p1 -b .libxml2
+%patch016 -p1 -b .libxml2
 
 # Prevent %%doc confusion over LICENSE files
 cp Zend/LICENSE Zend/ZEND_LICENSE
@@ -1257,6 +1259,11 @@ mkdir Zend && cp ../Zend/zend_{language,ini}_{parser,scanner}.[ch] Zend
 # zlib: used by image
 
 export LDFLAGS="-Wl,-rpath=/opt/cpanel/ea-brotli/lib"
+
+export LDFLAGS="$LDFLAGS \
+    -Wl,--enable-new-dtags \
+    -Wl,-rpath,/opt/cpanel/ea-libxml2/lib \
+    -Wl,-rpath,/opt/cpanel/ea-libxml2/lib64"
 
 ln -sf ../configure
 %configure \
@@ -1962,6 +1969,9 @@ fi
 %endif
 
 %changelog
+* Wed Oct 08 2025 Chris Castillo <chris.castillo@webpros.com> - 7.3.33-14
+- EA4-136: Fix libxml2 v2.15.0 compatibility
+
 * Fri Oct 25 2024 Julian Brown <julian.brown@cpanel.net> - 7.3.33-13
 - ZC-12246: Correct conffiles for Ubuntu
 

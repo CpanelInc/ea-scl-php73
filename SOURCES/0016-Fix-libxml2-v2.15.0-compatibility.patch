@@ -1,0 +1,25 @@
+From 7fa9843b7fa4870f1ea228893ce65a3074b46ffd Mon Sep 17 00:00:00 2001
+From: Chris Castillo <chris.castillo@webpros.com>
+Date: Wed, 8 Oct 2025 18:58:01 +0000
+Subject: [PATCH] Fix libxml2 v2.15.0 compatibility
+
+---
+ ext/libxml/libxml.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ext/libxml/libxml.c b/ext/libxml/libxml.c
+index 72ceea63274..53d362ca6ea 100644
+--- a/ext/libxml/libxml.c
++++ b/ext/libxml/libxml.c
+@@ -431,7 +431,7 @@ php_libxml_input_buffer_create_filename(const char *URI, xmlCharEncoding enc)
+ static xmlOutputBufferPtr
+ php_libxml_output_buffer_create_filename(const char *URI,
+                               xmlCharEncodingHandlerPtr encoder,
+-                              int compression ATTRIBUTE_UNUSED)
++                              int compression)
+ {
+ 	xmlOutputBufferPtr ret;
+ 	xmlURIPtr puri;
+-- 
+2.48.2
+
